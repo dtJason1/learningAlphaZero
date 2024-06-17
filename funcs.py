@@ -60,16 +60,16 @@ def playMatches(player1, player2, EPISODES, logger, turns_until_tau0, memory = N
         player2.mcts = None
 
         if goes_first == 0:
-            player1Starts = random.randint(0,1) * 2 - 1
+            player1Starts = random.randint(0,1) * 2 - 1 # 랜덤으로 선을 잡는다, player1Starts 는 1 이나 -1밖에 되지 않음
         else:
-            player1Starts = goes_first
+            player1Starts = goes_first # 이미 게임을 시작한 경우에는 (goes_first != 0) player1Starts 가 goes_first이다
 
-        if player1Starts == 1:
+        if player1Starts == 1: #player1Starts 가 1이면,  player1 이 1, player2가 -1
             players = {1:{"agent": player1, "name":player1.name}
                     , -1: {"agent": player2, "name":player2.name}
                     }
-            logger.info(player1.name + ' plays as X')
-        else:
+            logger.info(player1.name + ' plays as X') #player 1 이 x임(선)
+        else: #player1Starts 가 -1이면, player2가 1, player1 이 -1, 먼저 선을 잡는 경우를 얘기하는거 같음
             players = {1:{"agent": player2, "name":player2.name}
                     , -1: {"agent": player1, "name":player1.name}
                     }
@@ -78,12 +78,13 @@ def playMatches(player1, player2, EPISODES, logger, turns_until_tau0, memory = N
 
         env.gameState.render(logger)
 
-        while done == 0:
-            turn = turn + 1
+        while done == 0: # done이 0이면
+            turn = turn + 1 # turn을 늘려주고
     
             #### Run the MCTS algo and return an action
-            if turn < turns_until_tau0:
-                action, pi, MCTS_value, NN_value = players[state.playerTurn]['agent'].act(state, 1)
+            if turn < turns_until_tau0: #turn이 turns_until_tau0(현재는 10으로 설정됨)보다 작으면
+                action, pi, MCTS_value, NN_value = players[state.playerTurn]['agent'].act(state, 1) #해당 턴의 agent에게, act(를 해주는데.
+
             else:
                 action, pi, MCTS_value, NN_value = players[state.playerTurn]['agent'].act(state, 0)
 

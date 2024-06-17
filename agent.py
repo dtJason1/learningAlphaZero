@@ -13,7 +13,7 @@ import time
 
 import matplotlib.pyplot as plt
 from IPython import display
-import pylab as pl
+import matplotlib.pylab as pl
 
 
 class User():
@@ -71,19 +71,19 @@ class Agent():
 		self.mcts.backFill(leaf, value, breadcrumbs)
 
 
-	def act(self, state, tau):
+	def act(self, state, tau): #맨 처음 시작했을때, GameState 와 tau값을 보내줌, 현재는 1
 
-		if self.mcts == None or state.id not in self.mcts.tree:
+		if self.mcts == None or state.id not in self.mcts.tree: #mcts가 없거나,  받아온 gameState의 상태가 mcts.tree에 없다면
 			self.buildMCTS(state)
 		else:
 			self.changeRootMCTS(state)
 
 		#### run the simulation
-		for sim in range(self.MCTSsimulations):
+		for sim in range(self.MCTSsimulations): #50번
 			lg.logger_mcts.info('***************************')
 			lg.logger_mcts.info('****** SIMULATION %d ******', sim + 1)
 			lg.logger_mcts.info('***************************')
-			self.simulate()
+			self.simulate() #50번동안 simulate() 함
 
 		#### get action values
 		pi, values = self.getAV(1)

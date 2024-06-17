@@ -33,12 +33,11 @@ pyparsing==2.2.0
 python-dateutil==2.7.1
 pytz==2018.3
 PyYAML==3.12
-pyzmq==17.0.0
 scipy==1.0.1
 simplegeneric==0.8.1
 six==1.11.0
 tensorboard==1.6.0
-tensorflow==1.6.0
+tensorflow
 termcolor==1.1.0
 tornado==5.0.1
 traitlets==4.3.2
